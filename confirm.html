@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle Details</title>
+    <style>
+        body {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+            background-color: #004d40;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+nav {
+            display: flex;
+            justify-content: center;
+            background-color: #00796b;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            color: #ffffff;
+            padding: 14px 25px;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            font-size: 1.1em;
+        }
+
+        nav a:hover {
+            background-color: #004d40;
+            color: #ffffff;
+        }
+
+.container {
+    padding: 20px;
+    max-width: 900px; /* Increased width for more content space */
+    margin: auto;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* More pronounced shadow */
+    border-radius: 10px; /* Softer corners */
+    border: 1px solid #ddd; /* Subtle border for definition */
+}
+
+.vehicle-details img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px; /* Consistent rounded corners */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+}
+
+.vehicle-details h3 {
+    color: #ff6f61; /* Coral color for consistency */
+    margin: 20px 0 10px;
+    font-size: 1.8em; /* Larger font size for emphasis */
+    font-weight: 700; /* Bold text */
+}
+
+.vehicle-details p {
+    font-size: 1.1em; /* Slightly larger text */
+    line-height: 1.6; /* Increased line height for readability */
+    color: #666;
+}
+
+.price {
+    font-size: 1.4em; /* Larger font size for price */
+    font-weight: 700; /* Bold text for emphasis */
+    color: #ff6f61; /* Coral color for consistency */
+    margin: 10px 0;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Increased spacing between form elements */
+}
+
+form label {
+    font-weight: 600; /* Slightly bolder text for labels */
+    color: #333; /* Darker color for better readability */
+}
+
+form input, form select {
+    padding: 12px; /* Slightly more padding for inputs */
+    font-size: 1em;
+    border: 1px solid #ddd;
+    border-radius: 8px; /* More rounded corners for a modern look */
+    background-color: #f9f9f9; /* Light background for inputs */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle inset shadow */
+}
+
+form input[type="file"] {
+    border: none;
+}
+
+form button {
+    background-color: #ff6f61; /* Coral background */
+    color: white;
+    padding: 12px 25px; /* More padding for a button */
+    border: none;
+    border-radius: 8px; /* Rounded corners */
+    font-size: 1.1em; /* Slightly larger font size */
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s; /* Added transform for effect */
+}
+
+form button:hover {
+    background-color: #e55b4f; /* Slightly darker coral */
+    transform: scale(1.05); /* Button grows slightly on hover */
+}
+
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const params = new URLSearchParams(window.location.search);
+            const carId = params.get('car');
+            const carDetails = {
+                1: { name: "JEEP Wrangler Rubicon", image: "c1s.jpg", description: "Rugged and luxurious SUV", price: "Rs.8000/day" },
+                2: { name: "Skoda Octavia VRS", image: "c2.jpg", description: "Spacious sedan with great power delivery", price: "Rs.2500/day" },
+                3: { name: "VOlkswagen Passat", image: "c3.jpg", description: "Luxury and comfort for all journeys.", price: "Rs.4500/day" },
+                4: { name: "Rolls Royce Phantom ", image: "c4.jpg", description: "Immensely luxurious drive.", price: "Rs.60000/day" },
+                5: { name: "Audi A8L", image: "c5.jpg", description: "Luxury and Power combined.", price: "Rs.20000/day" },
+                6: { name: "Brabus G800", image: "c6.jpg", description: "Delivers a monstrosity of power:", price: "Rs.20000/day" },
+                7: { name: "Mini Cooper", image: "c7.jpg", description: "Powerful hatchback for all your adventures.", price: "Rs.2000/day" },
+                8: { name: "Aston Martin DB12", image: "c8.jpg", description: "Powerful and efficient.", price: "Rs.25000/day" },
+                9: { name: "Ford Shelby Mustang G500KR", image: "c9.jpg", description: "Monstrous Sports car.", price: "Rs.25000/day" },
+                10: { name: "Nissan GT R-35", image: "c10.jpg", description: "Sporty swiftness", price: "Rs.25000/day" },
+                11: { name: "Bentley Continental GT", image: "c11.jpg", description: "Stylish and modern.", price: "rs.22000/day" },
+                12: { name: "Mercedes Benz-Maybach", image: "c12.jpg", description: "Most Luxurious of all.", price: "Rs.40000/day" },
+                13: { name: "Toyota Supra", image: "c13.jpg", description: "Sound Satisfaction", price: "Rs.7900/day" },
+                14: { name: "Audi Q8", image: "c14.jpg", description: "Powerful SUV for all your adventures.", price: "Rs.20000/day" },
+                15: { name: "Porsche 911 Turbo S", image: "c15.jpg", description: "Power Hungry Machine", price: "Rs.30000/day" },
+                16: { name: "Lamborghini Aventador", image: "c16.jpg", description: "Aggressive Sports car.", price: "Rs.80000/day" },
+                17: { name: "Volvo XC90", image: "c17.jpg", description: "Comfortable and Efficient.", price: "Rs.15000/day" },
+                18: { name: "Jeep Cherokee", image: "c18.jpg", description: "Stylish and modern, good to drive.", price: "Rs.17000/day" },
+                19: { name: "BMW M5", image: "c19.jpg", description: "Everyones Favourite", price: "Rs.18000/day" },
+                20: { name: "Dodge CHallenger", image: "c20.jpg", description: "ry Something Different", price: "Rs.12000/day" },
+                21: { name: "Red Bull F1 Sports Car", image: "c21.jpg", description: "A once in a lifetime experience", price: "Rs.200000/day" },
+            };
+            if (carDetails[carId]) {
+                document.getElementById("carName").innerText = carDetails[carId].name;
+                document.getElementById("carImage").src = carDetails[carId].image;
+                document.getElementById("carDescription").innerText = carDetails[carId].description;
+                document.getElementById("carPrice").innerText = carDetails[carId].price;
+                document.getElementById("car_id").value = carId;
+                document.getElementById("car_name").value = carDetails[carId].name; // Set car name
+            }
+        });
+    </script>
+</head>
+<body>
+
+<header>
+    <h1>Vehicle Details</h1>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="vehicles.html">Vehicles</a>
+    <a href="booking.html">Booking</a>
+    <a href="aboutus.html">About Us</a>
+</nav>
+
+<div class="container">
+    <div class="vehicle-details">
+        <img id="carImage" src="" alt="Car Image">
+        <h3 id="carName"></h3>
+        <p id="carDescription"></p>
+        <p id="carPrice" class="price"></p>
+    </div>
+
+    <form action="submit_booking.php" method="post" enctype="multipart/form-data">
+        <input type="hidden" id="car_id" name="car_id" value="">
+        <input type="hidden" id="car_name" name="car_name" value=""> <!-- Hidden input for car name -->
+        
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="phone">Phone Number:</label>
+        <input type="tel" id="phone" name="phone" required>
+
+        <label for="id_proof">Upload ID Proof:</label>
+        <input type="file" id="id_proof" name="id_proof" accept=".jpg, .jpeg, .png, .pdf" required>
+
+        <label for="start_date">Start Date:</label>
+        <input type="date" id="start_date" name="start_date" required>
+
+        <label for="end_date">End Date:</label>
+        <input type="date" id="end_date" name="end_date" required>
+
+        <button type="submit">Confirm Booking</button>
+    </form>
+</div>
+
+</body>
+</html>
